@@ -1,0 +1,416 @@
+[
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/abyssinian",
+    "breed_name": "Abyssinian",
+    "size": "Small to medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 6 to 8 pounds",
+    "coat": "Medium",
+    "color": "Ruddy, red, blue, fawn",
+    "lifespan": "9 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/american-bobtail",
+    "breed_name": "American Bobtail",
+    "size": "Medium to Large",
+    "weight": "Male: weighing 12 to 16 pounds, Female: weighing 7 to 11 pounds",
+    "coat": "Short, Medium, Long",
+    "color": "White, black, blue, red, cream, chocolate, lavender, cinnamon, fawn, plus various patterns and shadings",
+    "lifespan": "13 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/american-curl",
+    "breed_name": "American Curl",
+    "size": "Small to Medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 5 to 8 pounds",
+    "coat": "Short, Semi-long",
+    "color": "White, black, blue, red, cream, chocolate, lilac, silver, golden, plus various patterns and shadings",
+    "lifespan": "13+ years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/american-shorthair",
+    "breed_name": "American Shorthair",
+    "size": "Medium to large",
+    "weight": "Male: weighing 11 to 15 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Short",
+    "color": "White, black, blue, red, cream and silver, plus various patterns and shadings",
+    "lifespan": "15 to 20 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/american-wirehair",
+    "breed_name": "American Wirehair",
+    "size": "Medium to Large",
+    "weight": "Male: weighing 12 to 15 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Medium",
+    "color": "Average, considered moderately talkative and an enthusiastic purrer",
+    "lifespan": "7 to 12 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/balinese-javanese",
+    "breed_name": "Balinese-Javanese",
+    "size": "Medium",
+    "weight": "Male: weighing 12 to 16 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Medium",
+    "color": "Balinese - seal point, chocolate point, blue point and lilac point, plus various patterns and shadings; Javanese – red point, cream point and seal point, plus various patterns and shadings",
+    "lifespan": "15+ years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/bengal",
+    "breed_name": "Bengal",
+    "size": "Medium to large",
+    "weight": "Male: weighing 10 to 18 pounds, Female: weighing 6 to 12 pounds",
+    "coat": "Medium",
+    "color": "Bright orange to light brown, with dark spots or a distinctive marbling pattern",
+    "lifespan": "12 to 16 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/birman",
+    "breed_name": "Birman",
+    "size": "Medium to Large",
+    "weight": "Male: weighing 9 to 15 pounds, Female: weighing 6 to 10 pounds",
+    "coat": "Medium to Long",
+    "color": "Seal point, blue point, chocolate point, lilac point",
+    "lifespan": "15+ years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/bombay",
+    "breed_name": "Bombay",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 11 pounds, Female: weighing 6 to 9 pounds",
+    "coat": "Short",
+    "color": "Black",
+    "lifespan": "12 to 16 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/british-shorthair",
+    "breed_name": "British Shorthair",
+    "size": "Medium to large",
+    "weight": "Male: weighing 12 to 18 pounds, Female: weighing 9 to 15 pounds",
+    "coat": "Short, plush, dense",
+    "color": "Blue, white, black, red, cream, smoke, silver and golden, plus a variety of patterns and shadings",
+    "lifespan": "12 to 17 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/burmese",
+    "breed_name": "Burmese",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 12 pounds, Female: weighing 6 to 10 pounds",
+    "coat": "Short",
+    "color": "Sable, champagne, blue, platinum",
+    "lifespan": "10 to 16 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/chartreux",
+    "breed_name": "Chartreux",
+    "size": "Medium to large",
+    "weight": "Male: weighing 10 to 15 pounds, Female: weighing 6 to 11 pounds",
+    "coat": "Medium",
+    "color": "Any shade of blue, from ash to slate",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/cornish-rex",
+    "breed_name": "Cornish Rex",
+    "size": "Small to medium",
+    "weight": "Male: weighing 6 to 9 pounds, Female: weighing 5 to 7 pounds",
+    "coat": "Short, extremely soft and silky",
+    "color": "White, black, blue, red, cream, chocolate, lavender, silver, smoke and tabby, plus various patterns and shadings",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/devon-rex",
+    "breed_name": "Devon Rex",
+    "size": "Small to Medium",
+    "weight": "Male: weighing 8 to 10 pounds, Female: weighing 5 to 8 pounds",
+    "coat": "Short",
+    "color": "White, black, blue, red, cream, chocolate, lavender, cinnamon and fawn, plus various patterns and shadings",
+    "lifespan": "9 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/egyptian-mau",
+    "breed_name": "Egyptian Mau",
+    "size": "Medium",
+    "weight": "Male: weighing 10 to 14 pounds, Female: weighing 6 to 10 pounds",
+    "coat": "Short to medium",
+    "color": "Silver, bronze and smoke",
+    "lifespan": "12 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/european-burmese",
+    "breed_name": "European Burmese",
+    "size": "Medium",
+    "weight": "Male: weighing 10 to 14 pounds, Female: weighing 7 to 10 pounds",
+    "coat": "Short, fine, glossy",
+    "color": "Brown, blue, chocolate, lilac, red, cream, brown tortie, blue tortie, chocolate tortie, lilac tortie",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/exotic-shorthair",
+    "breed_name": "Exotic Shorthair",
+    "size": "Medium to Large",
+    "weight": "Male: weighing 7 to 14 pounds, Female: weighing 6 to 10 pounds",
+    "coat": "Short",
+    "color": "White, black, blue, red, cream, chocolate, lilac, silver, plus various patterns and shadings",
+    "lifespan": "15+ years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/havana-brown",
+    "breed_name": "Havana Brown",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 10 pounds, Female: weighing 6 to 8 pounds",
+    "coat": "Short to medium, smooth, lustrous",
+    "color": "Brown",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/himalayan",
+    "breed_name": "Himalayan",
+    "size": "Medium to large",
+    "weight": "Male: weighing 9 to 14 pounds, Female: weighing 7 to 11 pounds",
+    "coat": "Long",
+    "color": "White to fawn body with color points that include chocolate, seal, lilac, blue, red, cream tortie, blue-cream, chocolate-tortie, lilac-cream, seal lynx, blue lynx, red lynx, cream lynx, tortie lynx, blue-cream lynx, chocolate lynx, lilac lynx, chocolate-t",
+    "lifespan": "9 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/japanese-bobtail",
+    "breed_name": "Japanese Bobtail",
+    "size": "Medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 5 to 7 pounds",
+    "coat": "Long (longhaired) and short (shorthaired)",
+    "color": "White, black, red, blue and cream, plus various patterns and shadings",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/korat",
+    "breed_name": "Korat",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 10 pounds, Female: weighing 6 to 8 pounds",
+    "coat": "Short, glossy, fine",
+    "color": "White",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/laperm",
+    "breed_name": "LaPerm",
+    "size": "Medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 5 to 8 pounds",
+    "coat": "Short or long, soft, wavy",
+    "color": "White, black, blue, red, cream, chocolate, cinnamon, fawn and lavender, plus various patterns and shadings",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/maine-coon",
+    "breed_name": "Maine Coon",
+    "size": "Large",
+    "weight": "Male: weighing 12 to 15 pounds, Female: weighing 9 to 12 pounds",
+    "coat": "Shorter on the shoulders and longer on the stomach, smooth, shaggy",
+    "color": "Most commonly brown tabby, but other colors and patterns are possible",
+    "lifespan": "10 to 13 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/manx",
+    "breed_name": "Manx",
+    "size": "Medium to large",
+    "weight": "Male: weighing 9 to 13 pounds, Female: weighing 7 to 11 pounds",
+    "coat": "Longhair — medium, dense, soft, silky; shorthair — short, dense, glossy",
+    "color": "White, black, blue, red, cream and silver, plus various patterns and shadings",
+    "lifespan": "8 to 14 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/munchkin",
+    "breed_name": "Munchkin",
+    "size": "Small",
+    "weight": "Male: weighing 5 to 9 pounds, Female: weighing 5 to 9 pounds",
+    "coat": "Long or Short",
+    "color": "Colors and patterns vary",
+    "lifespan": "12 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/norwegian-forest-cat",
+    "breed_name": "Norwegian Forest Cat",
+    "size": "Large",
+    "weight": "Male: weighing 10 to 16 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Long, dense, glossy, smooth",
+    "color": "White, black, blue, red, cream and silver, plus various patterns and shadings",
+    "lifespan": "14 to 16 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/ocicat",
+    "breed_name": "Ocicat",
+    "size": "Medium to large",
+    "weight": "Male: weighing 10 to 15 pounds, Female: weighing 7 to 12 pounds",
+    "coat": "Short, smooth, satiny",
+    "color": "Tawny, chocolate, cinnamon, blue, lavender, fawn, ebony silver, chocolate silver, cinnamon silver, blue silver, lavender silver, fawn silver",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/oriental",
+    "breed_name": "Oriental",
+    "size": "Small to Medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 5 to 8 pounds",
+    "coat": "Shorthair, Longhair",
+    "color": "Blue, chestnut, cinnamon, cream, ebony, fawn, lavender, red and white, plus various patterns and shadings",
+    "lifespan": "8-15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/persian",
+    "breed_name": "Persian",
+    "size": "Medium to large",
+    "weight": "Male: weighing 9 to 14 pounds, Female: weighing 7 to 11 pounds",
+    "coat": "Long, thick, glossy",
+    "color": "White, blue, black, red, cream, chocolate, lilac",
+    "lifespan": "15 to 20 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/peterbald",
+    "breed_name": "Peterbald",
+    "size": "Small to medium",
+    "weight": "Male: weighing 8 to 10 pounds, Female: weighing 6 to 8 pounds",
+    "coat": "Hairless",
+    "color": "All colors and/or markings are acceptable",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/pixiebob",
+    "breed_name": "Pixiebob",
+    "size": "Medium to large",
+    "weight": "Male: weighing 12 to 17 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Longhair — medium, soft, silky; shorthair — short, soft, resilient",
+    "color": "Brown-spotted tabby",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/ragamuffin",
+    "breed_name": "Ragamuffin",
+    "size": "Large",
+    "weight": "Male: weighing 12 to 20 pounds, Female: weighing 8 to 15 pounds",
+    "coat": "Medium-long, thick, plush",
+    "color": "White, black, blue, red, cream, chocolate, lilac, cinnamon and fawn, plus various patterns and shadings",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/ragdoll",
+    "breed_name": "Ragdoll",
+    "size": "Medium",
+    "weight": "Male: weighing 10 to 15 pounds, Female: weighing 10 to 15 pounds",
+    "coat": "Semi-long, plush, silky",
+    "color": "Seal, blue, chocolate, lilac, red and cream, plus various patterns and shadings, including bi-color, van, colorpoint and mitted",
+    "lifespan": "12 to 17 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/russian-blue",
+    "breed_name": "Russian Blue",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 15 pounds, Female: weighing 8 to 15 pounds",
+    "coat": "Short, dense, fine, plush",
+    "color": "Blue with silver tips",
+    "lifespan": "10 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/savannah",
+    "breed_name": "Savannah",
+    "size": "Large",
+    "weight": "Male: weighing 12 to 25 pounds, Female: weighing 12 to 25 pounds",
+    "coat": "Short, slightly coarse",
+    "color": "Black, brown spotted tabby, black silver spotted tabby, black smoke",
+    "lifespan": "12 to 20 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/scottish-fold",
+    "breed_name": "Scottish Fold",
+    "size": "Medium",
+    "weight": "Male: weighing 9 to 13 pounds, Female: weighing 6 to 9 pounds",
+    "coat": "Longhair — medium-long; shorthair — medium-short, dense, plush",
+    "color": "White, black, blue, red, cream and silver, plus various patterns and shadings",
+    "lifespan": "11 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/selkirk-rex",
+    "breed_name": "Selkirk Rex",
+    "size": "Medium to large",
+    "weight": "Male: weighing 11 to 16 pounds, Female: weighing 6 to 12 pounds",
+    "coat": "Longhair — long, dense, soft, curly; shorthair — short, dense, soft, curly",
+    "color": "White, black, red, cream, chocolate and lavender, plus various patterns and shadings",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/siamese",
+    "breed_name": "Siamese",
+    "size": "Medium",
+    "weight": "Male: weighing 11 to 15 pounds, Female: weighing 8 to 12 pounds",
+    "coat": "Short, fine, glossy",
+    "color": "Seal point, chocolate point, blue point, lilac point",
+    "lifespan": "11 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/siberian",
+    "breed_name": "Siberian",
+    "size": "Medium to large",
+    "weight": "Male: weighing 8 to 17 pounds, Female: weighing 8 to 17 pounds",
+    "coat": "Semi-long",
+    "color": "White, black, blue, red, cream and silver, plus various patterns and shadings",
+    "lifespan": "11 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/singapura",
+    "breed_name": "Singapura",
+    "size": "Small",
+    "weight": "Male: weighing 6 to 8 pounds, Female: weighing 5 to 6 pounds",
+    "coat": "Short, fine, silky",
+    "color": "Sepia",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/somali",
+    "breed_name": "Somali",
+    "size": "Medium to large",
+    "weight": "Male: weighing 10 to 12 pounds, Female: weighing 6 to 10 pounds",
+    "coat": "Medium, fine, soft",
+    "color": "Ruddy, red, blue, fawn",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/sphynx",
+    "breed_name": "Sphynx",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 12 pounds, Female: weighing 6 to 9 pounds",
+    "coat": "Hairless, although some have a fine down",
+    "color": "White, black, blue, red, cream, chocolate, lavender, cinnamon and fawn, plus various patterns and shadings",
+    "lifespan": "8 to 15 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/tonkinese",
+    "breed_name": "Tonkinese",
+    "size": "Medium",
+    "weight": "Male: weighing 8 to 12 pounds, Female: weighing 6 to 8 pounds",
+    "coat": "Medium-short, fine, silky",
+    "color": "Natural mink, champagne mink, blue mink, platinum mink, natural solid, champagne solid, blue solid, platinum solid, natural point, champagne point, blue point, platinum point",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/toyger",
+    "breed_name": "Toyger",
+    "size": "Medium",
+    "weight": "Male: weighing 10 to 15 pounds, Female: weighing 7 to 10 pounds",
+    "coat": "Short, plush, soft",
+    "color": "Brown mackerel tabby",
+    "lifespan": null
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/turkish-angora",
+    "breed_name": "Turkish Angora",
+    "size": "Medium",
+    "weight": "Male: weighing 7 to 10 pounds, Female: weighing 5 to 8 pounds",
+    "coat": "Semi-long",
+    "color": "White, black, blue, cream and red, plus various patterns and shadings",
+    "lifespan": "12 to 18 years"
+  },
+  {
+    "url": "https://www.purina.com/cats/cat-breeds/turkish-van",
+    "breed_name": "Turkish Van",
+    "size": "Medium to large",
+    "weight": "Male: weighing 9 to 20 pounds, Female: weighing 7 to 12 pounds",
+    "coat": "Semi-long, fine, cashmere-like",
+    "color": "Red, cream, black, blue, red tabby, cream tabby, brown tabby, blue tabby, tortoiseshell, dilute tortoiseshell, brown patched tabby and blue patched tabby",
+    "lifespan": null
+  }
+]

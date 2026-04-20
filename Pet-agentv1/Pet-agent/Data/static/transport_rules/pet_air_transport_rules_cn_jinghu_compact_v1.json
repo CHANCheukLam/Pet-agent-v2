@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "id": "cn_pet_air_rules_jinghu_compact_v1",
+    "version": "1.0.0",
+    "lang": "en",
+    "scope": "CN domestic only, Beijing-Shanghai corridor",
+    "airports": {
+      "beijing": [
+        "PEK",
+        "PKX"
+      ],
+      "shanghai": [
+        "PVG",
+        "SHA"
+      ]
+    }
+  },
+  "global_baseline": {
+    "pets": [
+      "cat",
+      "dog"
+    ],
+    "default_max_pet_plus_kennel_kg": 32,
+    "default_checkin_minutes_before_departure": 120,
+    "recommended_docs_domestic": [
+      "Animal Quarantine Certificate",
+      "Vaccination proof (especially for dogs)"
+    ],
+    "weather_risk_celsius": {
+      "low_inclusive": -12,
+      "high_inclusive": 30
+    },
+    "common_restrictions": [
+      "snub-nosed breeds may be restricted",
+      "aggressive or dangerous breeds may be restricted",
+      "pregnant / just-postpartum pets may be restricted",
+      "very young pets are restricted by airline-specific minimum age",
+      "pets not fit for flight can be denied"
+    ]
+  },
+  "airlines": [
+    {
+      "code": "MU_FM",
+      "name": "China Eastern / Shanghai Airlines",
+      "jinghu_ready": true,
+      "checked_cargo": {
+        "enabled": true,
+        "request_window_domestic": "T-7d to T-48h",
+        "routes": "MU/FM operated direct flights only",
+        "max_pet_plus_kennel_kg": 32,
+        "per_passenger_limit": 2,
+        "min_pet_age": "6 months",
+        "weather_policy": "risk warning when <= -12C or >= 30C",
+        "key_kennel_rules": [
+          "IATA-sized kennel",
+          "one pet per kennel",
+          "metal lockable door",
+          ">=3-side ventilation",
+          "absorbent pad",
+          "nylon tie + net + strapping reinforcement"
+        ]
+      },
+      "in_cabin": {
+        "enabled": true,
+        "request_deadline": "up to T-24h",
+        "per_passenger_limit": 1,
+        "per_flight_limit": 2,
+        "seat_option": {
+          "enabled": true,
+          "max_kennel_cm_lwh": [
+            55,
+            35,
+            35
+          ],
+          "max_pet_plus_kennel_kg": 18,
+          "fee_note": "service fee + occupied-seat airfare"
+        },
+        "core_safety": [
+          "adult handler",
+          "muzzle",
+          "diaper",
+          "no odor/noise disturbance"
+        ]
+      }
+    },
+    {
+      "code": "CA",
+      "name": "Air China",
+      "jinghu_ready": true,
+      "checked_cargo": {
+        "enabled": true,
+        "request_deadline": "T-2h",
+        "routes": "CA operated flights with CA flight number",
+        "max_pet_plus_kennel_kg": 32,
+        "per_passenger_limit": 1,
+        "min_pet_age": "8 weeks",
+        "aircraft_must_have_oxygen_hold": true,
+        "not_supported_models": [
+          "A319",
+          "A320",
+          "737-8MAX",
+          "ARJ21-700"
+        ],
+        "key_kennel_rules": [
+          "IATA-sized kennel",
+          "secure metal door",
+          "metal-mesh protected openings",
+          "leakproof floor + absorbent pad",
+          "fixed water/food setup"
+        ]
+      },
+      "in_cabin": {
+        "enabled": false,
+        "note": "No standard paid pet-in-cabin product in provided policy text"
+      }
+    },
+    {
+      "code": "CZ",
+      "name": "China Southern",
+      "jinghu_ready": true,
+      "checked_cargo": {
+        "enabled": true,
+        "request_deadline_domestic": "T-4h",
+        "routes": "domestic direct flights only",
+        "max_pet_plus_kennel_kg": 32,
+        "kennel_max_cm_lwh": [
+          90,
+          60,
+          66
+        ],
+        "kennel_min_cm_lwh": [
+          5,
+          15,
+          20
+        ],
+        "min_pet_age": "8 weeks",
+        "weather_policy": "risk warning outside -12C to 30C"
+      },
+      "in_cabin": {
+        "enabled": true,
+        "eligible_pets": [
+          "small cats",
+          "small dogs"
+        ],
+        "per_passenger_limit": 1,
+        "per_flight_limit": 4,
+        "aircraft_exception": "C909 excluded",
+        "request_channels": [
+          "app",
+          "mini-program"
+        ],
+        "pre_departure": [
+          "quarantine certificate",
+          "vaccination proof",
+          "arrive >=120 min before departure"
+        ]
+      }
+    },
+    {
+      "code": "HU",
+      "name": "Hainan Airlines",
+      "jinghu_ready": true,
+      "checked_cargo": {
+        "enabled": true,
+        "request_window_domestic": "before T-24h",
+        "routes": "HU domestic self-operated; no transfer through-check",
+        "max_pet_plus_kennel_kg": 32,
+        "per_passenger_limit": 2,
+        "min_pet_age": "8 weeks",
+        "aircraft_not_supported": [
+          "A320NEO",
+          "A321NEO"
+        ],
+        "weather_policy": "hard stop if <= -12C or >= 30C at any route point"
+      },
+      "in_cabin": {
+        "enabled": true,
+        "economy_only": true,
+        "transfer_supported": false,
+        "per_passenger_limit": 2,
+        "two_pet_mode": "one occupied-seat + one non-seat",
+        "per_flight_limit": {
+          "narrow_body": 4,
+          "wide_body": 6
+        },
+        "non_seat_kennel_max_cm_lwh": [
+          35,
+          28,
+          24
+        ],
+        "seat_kennel_max_cm_lwh": [
+          55,
+          28,
+          24
+        ],
+        "request_windows": {
+          "app_msite_miniprogram": "T-7d to T-48h",
+          "hotline_ticket_office": "T-7d to T-24h",
+          "airport_walkin": "within T-24h, >=120 min before departure, rejection risk"
+        },
+        "required_docs": [
+          "Animal Quarantine Certificate",
+          "Vaccination proof for dogs",
+          "signed cabin pet transport agreement"
+        ]
+      }
+    }
+  ],
+  "llm_runtime_hints": {
+    "decision_order": [
+      "service enabled for selected airline",
+      "route + aircraft eligibility",
+      "pet eligibility (species/age/health/breed)",
+      "request window check",
+      "documents check",
+      "kennel size/material check",
+      "weather threshold check",
+      "quota check"
+    ],
+    "conflict_resolution": "If multiple rules conflict, apply the stricter one.",
+    "output_style": "Return clear pass/fail with failed rule IDs and next action."
+  }
+}
+

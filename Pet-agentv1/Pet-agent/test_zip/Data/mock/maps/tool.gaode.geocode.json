@@ -1,0 +1,74 @@
+{
+  "name": "gaode.geocode",
+  "description": "Gaode geocoding: convert an address to coordinate.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["address"],
+    "properties": {
+      "address": { "type": "string", "minLength": 1 },
+      "city": { "type": "string" }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "items", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "gaode" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["formatted_address", "location"],
+              "properties": {
+                "formatted_address": { "type": "string" },
+                "province": { "type": "string" },
+                "city": { "type": "string" },
+                "district": { "type": "string" },
+                "adcode": { "type": "string" },
+                "location": { "type": "string", "description": "lng,lat" },
+                "level": { "type": "string" }
+              }
+            }
+          },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "gaode",
+    "version": "1.0.0",
+    "timeout_ms": 2500,
+    "retries": 1,
+    "cache_ttl_seconds": 86400
+  }
+}

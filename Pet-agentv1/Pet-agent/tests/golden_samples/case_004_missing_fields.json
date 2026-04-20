@@ -1,0 +1,51 @@
+{
+  "input_case_id": "case_004_missing_fields",
+  "raw_user_message": "我想带狗去上海玩",
+  "input_language": "zh",
+  "recognized_stage": "pre_trip",
+  "recognized_task": "travel_route_planning",
+  "recognized_field_values": {
+    "destination_city": "Shanghai",
+    "travel_start_date": null,
+    "trip_days": null,
+    "daily_play_hours": null,
+    "transport_preference": null,
+    "budget_total": null,
+    "pet_type": "dog",
+    "pet_age": null,
+    "pet_weight_kg": null,
+    "session_id": "demo-session-001",
+    "travel_end_date": null,
+    "budget_per_person": null,
+    "historical_preferences": null,
+    "current_weather": null,
+    "route_matrix_summary": null
+  },
+  "missing_fields_resolution_status": {
+    "is_complete": false,
+    "missing_required_fields": [
+      "travel_start_date",
+      "trip_days",
+      "daily_play_hours",
+      "transport_preference",
+      "pet_age",
+      "pet_weight_kg"
+    ],
+    "blocking_fields": [],
+    "follow_up_question": "What is your travel start date?"
+  },
+  "source_provenance": {
+    "pet_breed_database": "static",
+    "policy_rules": "static",
+    "agents_md_logic": "static",
+    "pet_rules": "static",
+    "weather": "mock",
+    "route_matrix": "mock",
+    "gaode_poi": "mock",
+    "hotel_candidates": "none",
+    "pet_hospital_candidates": "none"
+  },
+  "planning_status": "blocked_incomplete_context",
+  "planner_result": null,
+  "fallback_or_block_reason": "Missing required route-planning fields."
+}

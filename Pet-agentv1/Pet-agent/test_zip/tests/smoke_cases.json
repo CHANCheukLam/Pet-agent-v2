@@ -1,0 +1,50 @@
+[
+  {
+  "case_id": "complete_route_request_ready_for_planner",
+  "user_message": "Plan a 2 day trip to Shanghai on 2026-05-01 with my dog, 3 years old, 8 kg, 6 hours per day, by taxi.",
+  "expected_result": {
+    "status": "ready_for_planner",
+    "recognized_stage": "pre_trip",
+    "recognized_task": "travel_route_planning",
+    "planner_invoked": true,
+    "key_assertions": {
+      "destination_city": "Shanghai",
+      "trip_days": 2,
+      "pet_type": "dog",
+      "pet_weight_kg": 8.0
+    }
+  }
+  },
+  {
+  "case_id": "incomplete_route_request_needs_more_info",
+  "user_message": "Plan a trip to Shanghai with my dog.",
+  "expected_result": {
+    "status": "need_more_info",
+    "recognized_stage": "pre_trip",
+    "recognized_task": "travel_route_planning",
+    "planner_invoked": false,
+    "missing_required_fields": [
+      "travel_start_date",
+      "trip_days",
+      "daily_play_hours",
+      "transport_preference",
+      "pet_age",
+      "pet_weight_kg"
+    ]
+  }
+  },
+  {
+  "case_id": "document_request_validated_but_not_planner_routed",
+  "user_message": "What documents do I need to travel to Shanghai with my cat?",
+  "expected_result": {
+    "status": "validated_but_not_planner_routed",
+    "recognized_stage": "pre_trip",
+    "recognized_task": "document_material_reminder",
+    "planner_invoked": false,
+    "key_assertions": {
+      "destination_city": "Shanghai",
+      "pet_type": "cat"
+    }
+  }
+  }
+]

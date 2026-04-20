@@ -1,0 +1,77 @@
+{
+  "name": "qweather.indices",
+  "description": "QWeather life/weather indices (UV, sport, clothing, air quality related advice).",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["location"],
+    "properties": {
+      "location": { "type": "string", "description": "location id or lng,lat" },
+      "types": {
+        "type": "array",
+        "items": { "type": "string", "enum": ["uv", "sport", "air", "comfort", "car_wash", "clothing"] }
+      },
+      "lang": { "type": "string", "default": "zh" }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "items", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "qweather" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "name", "category", "text"],
+              "properties": {
+                "type": { "type": "string" },
+                "name": { "type": "string" },
+                "category": { "type": "string" },
+                "text": { "type": "string" },
+                "date": { "type": "string" }
+              }
+            }
+          },
+          "pet_outdoor_advice": { "type": "string" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "qweather",
+    "version": "1.0.0",
+    "timeout_ms": 2500,
+    "retries": 1,
+    "cache_ttl_seconds": 3600
+  }
+}

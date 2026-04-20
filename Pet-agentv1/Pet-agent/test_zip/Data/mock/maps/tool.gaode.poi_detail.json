@@ -1,0 +1,116 @@
+{
+  "name": "gaode.poi_detail",
+  "description": "Gaode POI detail with normalized fields for attractions, hospitals and hotels.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["poi_id"],
+    "properties": {
+      "poi_id": { "type": "string", "minLength": 1 },
+      "show_fields": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "basic",
+            "contact",
+            "business",
+            "ticket",
+            "pet",
+            "tag",
+            "review",
+            "medical",
+            "hotel",
+            "accessibility"
+          ]
+        },
+        "default": ["basic", "contact", "business", "ticket", "pet", "review"]
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "item", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "gaode" },
+          "item": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["poi_id", "name", "type", "address", "location"],
+            "properties": {
+              "poi_id": { "type": "string" },
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "category_primary": { "type": "string" },
+              "category_secondary": { "type": "string" },
+              "address": { "type": "string" },
+              "location": { "type": "string", "description": "lng,lat" },
+              "district": { "type": "string" },
+              "indoor_outdoor": { "type": "string", "enum": ["indoor", "outdoor", "mixed", "unknown"] },
+              "crowd_level": { "type": "string", "enum": ["low", "medium", "high", "unknown"] },
+              "tel": { "type": "string" },
+              "business_hours": { "type": "string" },
+              "open_now": { "type": "boolean" },
+              "is_24h": { "type": "boolean" },
+              "ticket_required": { "type": "boolean" },
+              "ticket_price_cny": { "type": "number", "minimum": 0 },
+              "avg_spend_cny": { "type": "number", "minimum": 0 },
+              "price_level": { "type": "string", "enum": ["economy", "comfort", "high_end", "luxury", "unknown"] },
+              "user_rating": { "type": "number", "minimum": 0, "maximum": 5 },
+              "review_count": { "type": "integer", "minimum": 0 },
+              "review_summary": { "type": "string" },
+              "review_tags": { "type": "array", "items": { "type": "string" } },
+              "community_review_summary": { "type": "string" },
+              "community_tags": { "type": "array", "items": { "type": "string" } },
+              "hospital_type": { "type": "string", "enum": ["general", "emergency", "specialty", "pet_hospital", "pharmacy", "unknown"] },
+              "emergency_service": { "type": "boolean" },
+              "hotel_grade": { "type": "string", "enum": ["economy", "comfort", "high_end", "luxury", "unknown"] },
+              "pet_policy": { "type": "string", "enum": ["allowed", "restricted", "not_allowed", "unknown"] },
+              "pet_friendly_hint": { "type": "string" },
+              "navigation_hint": { "type": "string" },
+              "tags": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "gaode",
+    "version": "1.1.0",
+    "timeout_ms": 3000,
+    "retries": 1,
+    "cache_ttl_seconds": 300
+  }
+}

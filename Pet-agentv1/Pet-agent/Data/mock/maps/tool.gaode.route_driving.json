@@ -1,0 +1,77 @@
+{
+  "name": "gaode.route_driving",
+  "description": "Gaode driving route planning with traffic and toll estimation.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["origin", "destination"],
+    "properties": {
+      "origin": { "type": "string", "description": "lng,lat" },
+      "destination": { "type": "string", "description": "lng,lat" },
+      "waypoints": { "type": "string", "description": "lng,lat|lng,lat" },
+      "strategy": { "type": "integer", "minimum": 0, "maximum": 20, "default": 0 },
+      "avoid_polygons": { "type": "string" },
+      "show_fields": { "type": "array", "items": { "type": "string", "enum": ["traffic", "steps", "polyline", "cost"] } }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "routes", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "gaode" },
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["distance_m", "duration_s"],
+              "properties": {
+                "distance_m": { "type": "integer", "minimum": 0 },
+                "duration_s": { "type": "integer", "minimum": 0 },
+                "tolls_cny": { "type": "number", "minimum": 0 },
+                "traffic_status": { "type": "string", "enum": ["smooth", "slow", "jam", "severe_jam", "unknown"] },
+                "polyline": { "type": "string" },
+                "steps": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "gaode",
+    "version": "1.0.0",
+    "timeout_ms": 3500,
+    "retries": 1,
+    "cache_ttl_seconds": 60
+  }
+}

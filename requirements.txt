@@ -1,0 +1,7 @@
+openai
+python-dotenv
+tiktoken
+streamlit
+azure-ai-projects
+azure-identity
+pydantic>=2.0

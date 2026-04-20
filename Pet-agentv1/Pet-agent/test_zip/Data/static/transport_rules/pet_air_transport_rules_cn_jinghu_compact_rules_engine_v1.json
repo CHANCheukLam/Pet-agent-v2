@@ -1,0 +1,793 @@
+{
+  "meta": {
+    "id": "cn_pet_air_rules_jinghu_compact_rules_engine_v1",
+    "version": "1.0.0",
+    "lang": "en",
+    "scope": "CN domestic only, Beijing-Shanghai corridor",
+    "decision_mode": "automatic_pass_fail",
+    "strict_policy": "all_applicable_hard_stop_rules_must_pass"
+  },
+  "derived_from": {
+    "source_file": "pet_air_transport_rules_cn_jinghu_compact_v1.json",
+    "derived_at": "2026-04-17",
+    "compatibility": "non-breaking new file; original file unchanged"
+  },
+  "operator_catalog": [
+    "eq",
+    "ne",
+    "in",
+    "not_in",
+    "lte",
+    "lt",
+    "gte",
+    "gt",
+    "between_inclusive",
+    "outside_range_warning",
+    "inside_range_required",
+    "max_dimensions_lwh"
+  ],
+  "required_inputs": {
+    "global": [
+      "airline_code",
+      "service_type",
+      "route_is_direct",
+      "route_is_jinghu",
+      "hours_before_departure",
+      "pet_species",
+      "pet_age_weeks",
+      "pet_age_months",
+      "is_pregnant_or_just_postpartum",
+      "is_restricted_breed",
+      "is_fit_for_flight",
+      "pet_plus_kennel_kg",
+      "has_quarantine_certificate",
+      "has_required_vaccination_proof",
+      "aircraft_model",
+      "forecast_temp_c_min_on_route",
+      "forecast_temp_c_max_on_route",
+      "is_oxygen_hold_available",
+      "pets_for_this_passenger_count",
+      "pets_already_approved_on_flight_count",
+      "booking_channel"
+    ],
+    "service_specific": {
+      "checked_cargo": [
+        "kennel_is_iata_sized",
+        "kennel_has_metal_lockable_door",
+        "kennel_has_min_3_side_ventilation",
+        "kennel_has_absorbent_pad"
+      ],
+      "in_cabin": [
+        "is_economy_cabin",
+        "is_transfer_itinerary",
+        "seat_option_selected",
+        "seat_kennel_l_cm",
+        "seat_kennel_w_cm",
+        "seat_kennel_h_cm",
+        "non_seat_kennel_l_cm",
+        "non_seat_kennel_w_cm",
+        "non_seat_kennel_h_cm",
+        "pet_has_muzzle",
+        "pet_has_diaper"
+      ]
+    }
+  },
+  "evaluation_contract": {
+    "rule_applicability": "A rule is evaluated only when airline_code and service_type match and all applies_when conditions are true.",
+    "pass_fail": "If any applicable hard_stop rule fails, final_decision is FAIL.",
+    "warnings": "Failed non-hard-stop rules are returned as warnings and do not force FAIL.",
+    "conflict_resolution": "If overlapping rules exist, apply the strictest threshold.",
+    "output_fields": [
+      "final_decision",
+      "failed_hard_rules",
+      "failed_soft_rules",
+      "next_actions"
+    ]
+  },
+  "airlines": [
+    {
+      "code": "MU_FM",
+      "name": "China Eastern / Shanghai Airlines",
+      "rules": {
+        "checked_cargo": [
+          {
+            "rule_id": "MU_CARGO_001",
+            "failure_code": "ROUTE_NOT_DIRECT",
+            "hard_stop": true,
+            "input": "route_is_direct",
+            "operator": "eq",
+            "value": true,
+            "message": "MU/FM checked cargo requires direct flight."
+          },
+          {
+            "rule_id": "MU_CARGO_002",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "input": "hours_before_departure",
+            "operator": "between_inclusive",
+            "value": [
+              48,
+              168
+            ],
+            "message": "MU/FM domestic checked cargo request window is 48-168 hours before departure."
+          },
+          {
+            "rule_id": "MU_CARGO_003",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 2,
+            "message": "MU/FM checked cargo allows at most 2 pets per passenger."
+          },
+          {
+            "rule_id": "MU_CARGO_004",
+            "failure_code": "WEIGHT_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pet_plus_kennel_kg",
+            "operator": "lte",
+            "value": 32,
+            "unit": "kg",
+            "message": "MU/FM checked cargo max pet+kennel weight is 32kg."
+          },
+          {
+            "rule_id": "MU_CARGO_005",
+            "failure_code": "PET_TOO_YOUNG",
+            "hard_stop": true,
+            "input": "pet_age_months",
+            "operator": "gte",
+            "value": 6,
+            "message": "MU/FM checked cargo requires pet age >= 6 months."
+          },
+          {
+            "rule_id": "MU_CARGO_006",
+            "failure_code": "PET_NOT_ELIGIBLE_HEALTH_OR_BREED",
+            "hard_stop": true,
+            "input": "is_pregnant_or_just_postpartum",
+            "operator": "eq",
+            "value": false,
+            "message": "Pregnant or just-postpartum pets are not accepted."
+          },
+          {
+            "rule_id": "MU_CARGO_007",
+            "failure_code": "PET_NOT_ELIGIBLE_HEALTH_OR_BREED",
+            "hard_stop": true,
+            "input": "is_restricted_breed",
+            "operator": "eq",
+            "value": false,
+            "message": "Restricted breeds are not accepted."
+          },
+          {
+            "rule_id": "MU_CARGO_008",
+            "failure_code": "PET_NOT_FIT_FOR_FLIGHT",
+            "hard_stop": true,
+            "input": "is_fit_for_flight",
+            "operator": "eq",
+            "value": true,
+            "message": "Pet must be fit for flight."
+          },
+          {
+            "rule_id": "MU_CARGO_009",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          },
+          {
+            "rule_id": "MU_CARGO_010",
+            "failure_code": "KENNEL_NOT_COMPLIANT",
+            "hard_stop": true,
+            "input": "kennel_has_metal_lockable_door",
+            "operator": "eq",
+            "value": true,
+            "message": "Kennel must have metal lockable door."
+          },
+          {
+            "rule_id": "MU_CARGO_011",
+            "failure_code": "KENNEL_NOT_COMPLIANT",
+            "hard_stop": true,
+            "input": "kennel_has_min_3_side_ventilation",
+            "operator": "eq",
+            "value": true,
+            "message": "Kennel must have at least 3-side ventilation."
+          },
+          {
+            "rule_id": "MU_CARGO_012",
+            "failure_code": "TEMP_RISK_WARNING",
+            "hard_stop": false,
+            "input_group": [
+              "forecast_temp_c_min_on_route",
+              "forecast_temp_c_max_on_route"
+            ],
+            "operator": "outside_range_warning",
+            "value": [
+              -12,
+              30
+            ],
+            "message": "Temperature is outside MU/FM recommended range; transport risk warning."
+          }
+        ],
+        "in_cabin": [
+          {
+            "rule_id": "MU_CABIN_001",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "input": "hours_before_departure",
+            "operator": "gte",
+            "value": 24,
+            "message": "MU/FM in-cabin request deadline is at least 24 hours before departure."
+          },
+          {
+            "rule_id": "MU_CABIN_002",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 1,
+            "message": "MU/FM in-cabin allows at most 1 pet per passenger."
+          },
+          {
+            "rule_id": "MU_CABIN_003",
+            "failure_code": "FLIGHT_QUOTA_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_already_approved_on_flight_count",
+            "operator": "lt",
+            "value": 2,
+            "message": "MU/FM in-cabin allows at most 2 pets per flight."
+          },
+          {
+            "rule_id": "MU_CABIN_004",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          },
+          {
+            "rule_id": "MU_CABIN_005",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_required_vaccination_proof",
+            "operator": "eq",
+            "value": true,
+            "message": "Vaccination proof is required."
+          },
+          {
+            "rule_id": "MU_CABIN_006",
+            "failure_code": "SAFETY_GEAR_MISSING",
+            "hard_stop": true,
+            "input": "pet_has_muzzle",
+            "operator": "eq",
+            "value": true,
+            "message": "Muzzle is required by MU/FM in-cabin safety policy."
+          },
+          {
+            "rule_id": "MU_CABIN_007",
+            "failure_code": "SAFETY_GEAR_MISSING",
+            "hard_stop": true,
+            "input": "pet_has_diaper",
+            "operator": "eq",
+            "value": true,
+            "message": "Diaper is required by MU/FM in-cabin safety policy."
+          },
+          {
+            "rule_id": "MU_CABIN_008",
+            "failure_code": "SEAT_KENNEL_SIZE_EXCEEDED",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "seat_option_selected",
+              "operator": "eq",
+              "value": true
+            },
+            "input_group": [
+              "seat_kennel_l_cm",
+              "seat_kennel_w_cm",
+              "seat_kennel_h_cm"
+            ],
+            "operator": "max_dimensions_lwh",
+            "value": [
+              55,
+              35,
+              35
+            ],
+            "message": "Seat-option kennel max size is 55x35x35cm."
+          },
+          {
+            "rule_id": "MU_CABIN_009",
+            "failure_code": "WEIGHT_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "seat_option_selected",
+              "operator": "eq",
+              "value": true
+            },
+            "input": "pet_plus_kennel_kg",
+            "operator": "lte",
+            "value": 18,
+            "unit": "kg",
+            "message": "Seat-option max pet+kennel weight is 18kg."
+          }
+        ]
+      }
+    },
+    {
+      "code": "CA",
+      "name": "Air China",
+      "rules": {
+        "checked_cargo": [
+          {
+            "rule_id": "CA_CARGO_001",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "input": "hours_before_departure",
+            "operator": "gte",
+            "value": 2,
+            "message": "CA checked cargo request deadline is at least 2 hours before departure."
+          },
+          {
+            "rule_id": "CA_CARGO_002",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 1,
+            "message": "CA checked cargo allows at most 1 pet per passenger."
+          },
+          {
+            "rule_id": "CA_CARGO_003",
+            "failure_code": "WEIGHT_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pet_plus_kennel_kg",
+            "operator": "lte",
+            "value": 32,
+            "unit": "kg",
+            "message": "CA checked cargo max pet+kennel weight is 32kg."
+          },
+          {
+            "rule_id": "CA_CARGO_004",
+            "failure_code": "PET_TOO_YOUNG",
+            "hard_stop": true,
+            "input": "pet_age_weeks",
+            "operator": "gte",
+            "value": 8,
+            "message": "CA checked cargo requires pet age >= 8 weeks."
+          },
+          {
+            "rule_id": "CA_CARGO_005",
+            "failure_code": "PET_NOT_ELIGIBLE_HEALTH_OR_BREED",
+            "hard_stop": true,
+            "input": "is_restricted_breed",
+            "operator": "eq",
+            "value": false,
+            "message": "Restricted breeds are not accepted."
+          },
+          {
+            "rule_id": "CA_CARGO_006",
+            "failure_code": "PET_NOT_ELIGIBLE_HEALTH_OR_BREED",
+            "hard_stop": true,
+            "input": "is_pregnant_or_just_postpartum",
+            "operator": "eq",
+            "value": false,
+            "message": "Pregnant/lactating/recent postpartum pets are not accepted."
+          },
+          {
+            "rule_id": "CA_CARGO_007",
+            "failure_code": "AIRCRAFT_NOT_SUPPORTED",
+            "hard_stop": true,
+            "input": "aircraft_model",
+            "operator": "not_in",
+            "value": [
+              "A319",
+              "A320",
+              "737-8MAX",
+              "ARJ21-700"
+            ],
+            "message": "Selected CA aircraft model does not support oxygen hold for pets."
+          },
+          {
+            "rule_id": "CA_CARGO_008",
+            "failure_code": "OXYGEN_HOLD_REQUIRED",
+            "hard_stop": true,
+            "input": "is_oxygen_hold_available",
+            "operator": "eq",
+            "value": true,
+            "message": "CA checked cargo requires oxygen-capable hold."
+          },
+          {
+            "rule_id": "CA_CARGO_009",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          }
+        ],
+        "in_cabin": [
+          {
+            "rule_id": "CA_CABIN_001",
+            "failure_code": "SERVICE_NOT_AVAILABLE",
+            "hard_stop": true,
+            "input": "service_type",
+            "operator": "ne",
+            "value": "in_cabin",
+            "message": "CA standard paid pet-in-cabin service is not available in this dataset scope."
+          }
+        ]
+      }
+    },
+    {
+      "code": "CZ",
+      "name": "China Southern",
+      "rules": {
+        "checked_cargo": [
+          {
+            "rule_id": "CZ_CARGO_001",
+            "failure_code": "ROUTE_NOT_DIRECT",
+            "hard_stop": true,
+            "input": "route_is_direct",
+            "operator": "eq",
+            "value": true,
+            "message": "CZ checked cargo supports domestic direct flights only."
+          },
+          {
+            "rule_id": "CZ_CARGO_002",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "input": "hours_before_departure",
+            "operator": "gte",
+            "value": 4,
+            "message": "CZ domestic checked cargo request deadline is at least 4 hours before departure."
+          },
+          {
+            "rule_id": "CZ_CARGO_003",
+            "failure_code": "WEIGHT_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pet_plus_kennel_kg",
+            "operator": "lte",
+            "value": 32,
+            "unit": "kg",
+            "message": "CZ checked cargo max pet+kennel weight is 32kg."
+          },
+          {
+            "rule_id": "CZ_CARGO_004",
+            "failure_code": "PET_TOO_YOUNG",
+            "hard_stop": true,
+            "input": "pet_age_weeks",
+            "operator": "gte",
+            "value": 8,
+            "message": "CZ checked cargo requires pet age >= 8 weeks."
+          },
+          {
+            "rule_id": "CZ_CARGO_005",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          },
+          {
+            "rule_id": "CZ_CARGO_006",
+            "failure_code": "TEMP_RISK_WARNING",
+            "hard_stop": false,
+            "input_group": [
+              "forecast_temp_c_min_on_route",
+              "forecast_temp_c_max_on_route"
+            ],
+            "operator": "outside_range_warning",
+            "value": [
+              -12,
+              30
+            ],
+            "message": "Temperature is outside CZ recommended range; transport risk warning."
+          }
+        ],
+        "in_cabin": [
+          {
+            "rule_id": "CZ_CABIN_001",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 1,
+            "message": "CZ in-cabin allows at most 1 pet per passenger."
+          },
+          {
+            "rule_id": "CZ_CABIN_002",
+            "failure_code": "FLIGHT_QUOTA_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_already_approved_on_flight_count",
+            "operator": "lt",
+            "value": 4,
+            "message": "CZ in-cabin allows at most 4 pets per flight."
+          },
+          {
+            "rule_id": "CZ_CABIN_003",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          },
+          {
+            "rule_id": "CZ_CABIN_004",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_required_vaccination_proof",
+            "operator": "eq",
+            "value": true,
+            "message": "Vaccination proof is required."
+          }
+        ]
+      }
+    },
+    {
+      "code": "HU",
+      "name": "Hainan Airlines",
+      "rules": {
+        "checked_cargo": [
+          {
+            "rule_id": "HU_CARGO_001",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "input": "hours_before_departure",
+            "operator": "gte",
+            "value": 24,
+            "message": "HU domestic checked cargo requires booking at least 24 hours before departure."
+          },
+          {
+            "rule_id": "HU_CARGO_002",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 2,
+            "message": "HU checked cargo allows at most 2 pets per passenger."
+          },
+          {
+            "rule_id": "HU_CARGO_003",
+            "failure_code": "WEIGHT_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pet_plus_kennel_kg",
+            "operator": "lte",
+            "value": 32,
+            "unit": "kg",
+            "message": "HU checked cargo max pet+kennel weight is 32kg."
+          },
+          {
+            "rule_id": "HU_CARGO_004",
+            "failure_code": "PET_TOO_YOUNG",
+            "hard_stop": true,
+            "input": "pet_age_weeks",
+            "operator": "gte",
+            "value": 8,
+            "message": "HU checked cargo requires pet age >= 8 weeks."
+          },
+          {
+            "rule_id": "HU_CARGO_005",
+            "failure_code": "AIRCRAFT_NOT_SUPPORTED",
+            "hard_stop": true,
+            "input": "aircraft_model",
+            "operator": "not_in",
+            "value": [
+              "A320NEO",
+              "A321NEO"
+            ],
+            "message": "Selected HU aircraft model is not supported for pet checked cargo."
+          },
+          {
+            "rule_id": "HU_CARGO_006",
+            "failure_code": "TEMP_HARD_BLOCK",
+            "hard_stop": true,
+            "input_group": [
+              "forecast_temp_c_min_on_route",
+              "forecast_temp_c_max_on_route"
+            ],
+            "operator": "inside_range_required",
+            "value": [
+              -12,
+              30
+            ],
+            "message": "HU checked cargo is blocked if any route temperature is <= -12C or >= 30C."
+          },
+          {
+            "rule_id": "HU_CARGO_007",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          }
+        ],
+        "in_cabin": [
+          {
+            "rule_id": "HU_CABIN_001",
+            "failure_code": "ECONOMY_ONLY",
+            "hard_stop": true,
+            "input": "is_economy_cabin",
+            "operator": "eq",
+            "value": true,
+            "message": "HU in-cabin pet service is economy-cabin only."
+          },
+          {
+            "rule_id": "HU_CABIN_002",
+            "failure_code": "TRANSFER_NOT_SUPPORTED",
+            "hard_stop": true,
+            "input": "is_transfer_itinerary",
+            "operator": "eq",
+            "value": false,
+            "message": "HU in-cabin pet service does not support transfer itineraries."
+          },
+          {
+            "rule_id": "HU_CABIN_003",
+            "failure_code": "PASSENGER_PET_LIMIT_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_for_this_passenger_count",
+            "operator": "lte",
+            "value": 2,
+            "message": "HU in-cabin allows at most 2 pets per passenger."
+          },
+          {
+            "rule_id": "HU_CABIN_004",
+            "failure_code": "FLIGHT_QUOTA_EXCEEDED",
+            "hard_stop": true,
+            "input": "pets_already_approved_on_flight_count",
+            "operator": "lt",
+            "value": 4,
+            "message": "HU in-cabin flight quota check should use aircraft-specific quota (narrow body default 4)."
+          },
+          {
+            "rule_id": "HU_CABIN_005",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "booking_channel",
+              "operator": "in",
+              "value": [
+                "app",
+                "msite",
+                "miniprogram"
+              ]
+            },
+            "input": "hours_before_departure",
+            "operator": "between_inclusive",
+            "value": [
+              48,
+              168
+            ],
+            "message": "HU app/msite/miniprogram in-cabin request window is 48-168 hours."
+          },
+          {
+            "rule_id": "HU_CABIN_006",
+            "failure_code": "REQUEST_WINDOW_INVALID",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "booking_channel",
+              "operator": "in",
+              "value": [
+                "hotline",
+                "ticket_office"
+              ]
+            },
+            "input": "hours_before_departure",
+            "operator": "between_inclusive",
+            "value": [
+              24,
+              168
+            ],
+            "message": "HU hotline/ticket office in-cabin request window is 24-168 hours."
+          },
+          {
+            "rule_id": "HU_CABIN_007",
+            "failure_code": "NON_SEAT_KENNEL_SIZE_EXCEEDED",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "seat_option_selected",
+              "operator": "eq",
+              "value": false
+            },
+            "input_group": [
+              "non_seat_kennel_l_cm",
+              "non_seat_kennel_w_cm",
+              "non_seat_kennel_h_cm"
+            ],
+            "operator": "max_dimensions_lwh",
+            "value": [
+              35,
+              28,
+              24
+            ],
+            "message": "HU non-seat in-cabin kennel max size is 35x28x24cm."
+          },
+          {
+            "rule_id": "HU_CABIN_008",
+            "failure_code": "SEAT_KENNEL_SIZE_EXCEEDED",
+            "hard_stop": true,
+            "applies_when": {
+              "input": "seat_option_selected",
+              "operator": "eq",
+              "value": true
+            },
+            "input_group": [
+              "seat_kennel_l_cm",
+              "seat_kennel_w_cm",
+              "seat_kennel_h_cm"
+            ],
+            "operator": "max_dimensions_lwh",
+            "value": [
+              55,
+              28,
+              24
+            ],
+            "message": "HU seat-option in-cabin kennel max size is 55x28x24cm."
+          },
+          {
+            "rule_id": "HU_CABIN_009",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_quarantine_certificate",
+            "operator": "eq",
+            "value": true,
+            "message": "Quarantine certificate is required."
+          },
+          {
+            "rule_id": "HU_CABIN_010",
+            "failure_code": "MISSING_REQUIRED_DOCUMENTS",
+            "hard_stop": true,
+            "input": "has_required_vaccination_proof",
+            "operator": "eq",
+            "value": true,
+            "message": "Vaccination proof is required for dogs."
+          },
+          {
+            "rule_id": "HU_CABIN_011",
+            "failure_code": "SAFETY_GEAR_MISSING",
+            "hard_stop": true,
+            "input": "pet_has_muzzle",
+            "operator": "eq",
+            "value": true,
+            "message": "Dog muzzle is required by HU in-cabin safety policy."
+          },
+          {
+            "rule_id": "HU_CABIN_012",
+            "failure_code": "SAFETY_GEAR_MISSING",
+            "hard_stop": true,
+            "input": "pet_has_diaper",
+            "operator": "eq",
+            "value": true,
+            "message": "Pet diaper is required by HU in-cabin safety policy."
+          }
+        ]
+      }
+    }
+  ],
+  "failure_code_guide": {
+    "SERVICE_NOT_AVAILABLE": "Requested service is not offered by airline or scope.",
+    "ROUTE_NOT_DIRECT": "Route fails direct-flight requirement.",
+    "REQUEST_WINDOW_INVALID": "Booking/request timing does not match allowed window.",
+    "PASSENGER_PET_LIMIT_EXCEEDED": "Passenger-level pet count exceeds airline limit.",
+    "FLIGHT_QUOTA_EXCEEDED": "Flight-level pet quota exceeded.",
+    "WEIGHT_LIMIT_EXCEEDED": "Pet plus kennel exceeds max weight.",
+    "PET_TOO_YOUNG": "Pet does not meet minimum age requirement.",
+    "PET_NOT_ELIGIBLE_HEALTH_OR_BREED": "Pet fails breed or health eligibility.",
+    "PET_NOT_FIT_FOR_FLIGHT": "Pet fitness-for-flight check failed.",
+    "MISSING_REQUIRED_DOCUMENTS": "Required docs are missing or invalid.",
+    "KENNEL_NOT_COMPLIANT": "Kennel fails mandatory structural rules.",
+    "AIRCRAFT_NOT_SUPPORTED": "Aircraft model does not support pet transport for this service.",
+    "OXYGEN_HOLD_REQUIRED": "Oxygen-capable hold is required but unavailable.",
+    "TEMP_RISK_WARNING": "Temperature is outside recommended range (warning).",
+    "TEMP_HARD_BLOCK": "Temperature violates hard stop threshold.",
+    "ECONOMY_ONLY": "Service is limited to economy cabin.",
+    "TRANSFER_NOT_SUPPORTED": "Transfer itinerary not supported.",
+    "NON_SEAT_KENNEL_SIZE_EXCEEDED": "Non-seat in-cabin kennel size exceeds limit.",
+    "SEAT_KENNEL_SIZE_EXCEEDED": "Seat-option in-cabin kennel size exceeds limit.",
+    "SAFETY_GEAR_MISSING": "Mandatory in-cabin safety gear is missing."
+  }
+}
+

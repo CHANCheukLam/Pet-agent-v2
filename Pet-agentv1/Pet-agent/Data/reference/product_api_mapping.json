@@ -1,0 +1,198 @@
+{
+  "1_welcome_stage_check": {
+    "owner_model": "4.1-mini",
+    "apis": [],
+    "data_source": ["static_rules", "memory"],
+    "notes": "欢迎语、阶段识别、字段完整性检查，不依赖外部地图/天气API",
+    "required_collected_fields": [
+      "user_age",
+      "travelers_count",
+      "medical_history",
+      "travel_date_range",
+      "trip_days",
+      "destination",
+      "transport_preference",
+      "daily_play_hours",
+      "budget_total",
+      "budget_per_person",
+      "hotel_budget_range",
+      "diet_preference",
+      "diet_restrictions",
+      "output_language"
+    ]
+  },
+  "2_documents_and_materials_reminder": {
+    "owner_model": "4.1-mini",
+    "apis": [],
+    "data_source": ["static_rules", "memory"],
+    "notes": "证件和出行材料提醒，不依赖外部地图/天气API",
+    "expected_output_fields": ["user_documents", "pet_documents", "quarantine_proof", "vaccine_book", "transport_requirements"]
+  },
+  "3_attraction_recommendation": {
+    "owner_model": "4.1-mini",
+    "apis": [
+      "gaode.geocode",
+      "gaode.poi_keyword",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "qweather.now",
+      "qweather.minutely"
+    ],
+    "data_source": ["static_rules", "memory"],
+    "expected_output_fields": [
+      "name",
+      "type",
+      "indoor_outdoor",
+      "ticket_required",
+      "ticket_price_cny",
+      "user_rating",
+      "review_summary",
+      "business_hours",
+      "pet_policy"
+    ]
+  },
+  "4_itinerary_planning_and_same_area_hotels": {
+    "owner_model": ["4.1-mini", "5.1-mini"],
+    "apis": [
+      "gaode.geocode",
+      "gaode.poi_keyword",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.distance",
+      "gaode.route_matrix",
+      "gaode.route_driving",
+      "gaode.route_walking",
+      "gaode.route_bicycling",
+      "gaode.route_transit",
+      "gaode.traffic_live",
+      "qweather.now",
+      "qweather.forecast",
+      "qweather.minutely",
+      "qweather.indices"
+    ],
+    "data_source": ["static_rules", "memory"],
+    "expected_output_fields": [
+      "daily_total_duration_s",
+      "poi_order",
+      "poi_stay_duration_s",
+      "commute_mode",
+      "commute_duration_s",
+      "estimated_total_cost_cny",
+      "recommended_lodging_area",
+      "hotel_grade",
+      "pet_policy"
+    ]
+  },
+  "5_nearby_pet_hospital_from_hotel": {
+    "owner_model": ["4.1-mini", "5.1-mini"],
+    "apis": [
+      "gaode.geocode",
+      "gaode.poi_keyword",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.distance",
+      "gaode.route_driving",
+      "gaode.route_walking"
+    ],
+    "data_source": ["static_rules", "memory"],
+    "expected_output_fields": [
+      "hospital_name",
+      "distance_m",
+      "user_rating",
+      "business_hours",
+      "tel",
+      "navigation_hint"
+    ]
+  },
+  "6_global_replanning": {
+    "owner_model": ["4.1-mini", "5.1-mini"],
+    "apis": [
+      "gaode.traffic_live",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.route_matrix",
+      "gaode.route_driving",
+      "gaode.route_walking",
+      "gaode.route_bicycling",
+      "gaode.route_transit",
+      "qweather.now",
+      "qweather.minutely"
+    ],
+    "data_source": ["memory"],
+    "expected_output_fields": [
+      "new_route_order",
+      "replaced_nodes",
+      "segment_commute_mode",
+      "segment_duration_s",
+      "adjusted_total_duration_s",
+      "replan_reason",
+      "cost_change_cny"
+    ]
+  },
+  "7_in_trip_single_poi_replacement": {
+    "owner_model": "5.1-mini",
+    "apis": [
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.route_driving",
+      "gaode.route_walking",
+      "qweather.now",
+      "qweather.minutely"
+    ],
+    "data_source": ["memory"],
+    "expected_output_fields": [
+      "name",
+      "type",
+      "distance_m",
+      "indoor_outdoor",
+      "weather_fit",
+      "pet_policy",
+      "ticket_price_cny",
+      "recommend_reason"
+    ]
+  },
+  "8_nearest_hospital_user": {
+    "owner_model": ["4.1-mini", "5.1-mini"],
+    "apis": [
+      "gaode.poi_keyword",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.distance",
+      "gaode.route_driving",
+      "gaode.route_walking"
+    ],
+    "data_source": ["memory"],
+    "expected_output_fields": [
+      "hospital_name",
+      "distance_m",
+      "eta_s",
+      "hospital_type",
+      "tel",
+      "navigation_mode",
+      "recommend_immediate_visit",
+      "emergency_advice"
+    ]
+  },
+  "9_nearest_pet_hospital": {
+    "owner_model": ["4.1-mini", "5.1-mini"],
+    "apis": [
+      "gaode.poi_keyword",
+      "gaode.poi_around",
+      "gaode.poi_detail",
+      "gaode.distance",
+      "gaode.route_driving",
+      "gaode.route_walking",
+      "qweather.now"
+    ],
+    "data_source": ["memory"],
+    "expected_output_fields": [
+      "pet_hospital_name",
+      "distance_m",
+      "eta_s",
+      "business_hours",
+      "tel",
+      "navigation_mode",
+      "emergency_advice"
+    ]
+  }
+}

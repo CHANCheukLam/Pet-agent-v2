@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "router_output.schema.json",
+  "title": "RouterOutput",
+  "description": "Structured output from the router for stage recognition, task routing, field extraction, validation status, and planner decision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recognized_stage",
+    "recognized_task",
+    "recognized_field_values",
+    "missing_fields_resolution_status",
+    "tool_invocation_decision",
+    "structured_task_stub_json"
+  ],
+  "properties": {
+    "recognized_stage": {
+      "type": "string",
+      "enum": ["global", "pre_trip", "in_trip"]
+    },
+    "recognized_task": {
+      "type": "string",
+      "enum": [
+        "welcome_and_stage_detection",
+        "document_material_reminder",
+        "scenic_recommendation",
+        "travel_route_planning",
+        "hotel_nearby_pet_hospital_summary",
+        "route_replanning",
+        "alternative_scenic_recommendation",
+        "nearby_hospital_recommendation",
+        "nearby_pet_hospital_recommendation"
+      ]
+    },
+    "recognized_field_values": {
+      "type": "object"
+    },
+    "missing_fields_resolution_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_complete",
+        "missing_required_fields",
+        "blocking_fields"
+      ],
+      "properties": {
+        "is_complete": {
+          "type": "boolean"
+        },
+        "missing_required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocking_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "follow_up_question": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "tool_invocation_decision": {
+      "type": "string",
+      "enum": [
+        "no_tool_needed",
+        "tool_needed",
+        "ready_for_planner",
+        "blocked_by_missing_fields"
+      ]
+    },
+    "structured_task_stub_json": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recognized_stage",
+        "recognized_task",
+        "recognized_field_values"
+      ],
+      "properties": {
+        "recognized_stage": {
+          "type": "string",
+          "enum": ["global", "pre_trip", "in_trip"]
+        },
+        "recognized_task": {
+          "type": "string",
+          "enum": [
+            "welcome_and_stage_detection",
+            "document_material_reminder",
+            "scenic_recommendation",
+            "travel_route_planning",
+            "hotel_nearby_pet_hospital_summary",
+            "route_replanning",
+            "alternative_scenic_recommendation",
+            "nearby_hospital_recommendation",
+            "nearby_pet_hospital_recommendation"
+          ]
+        },
+        "recognized_field_values": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "name": "qweather.forecast",
+  "description": "QWeather daily forecast for 3/7 days.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["location", "days"],
+    "properties": {
+      "location": { "type": "string", "description": "location id or lng,lat" },
+      "days": { "type": "integer", "enum": [3, 7], "default": 3 },
+      "lang": { "type": "string", "default": "zh" },
+      "unit": { "type": "string", "enum": ["m", "i"], "default": "m" }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "days", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "qweather" },
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["date", "text_day", "temp_min_c", "temp_max_c"],
+              "properties": {
+                "date": { "type": "string" },
+                "text_day": { "type": "string" },
+                "text_night": { "type": "string" },
+                "temp_min_c": { "type": "number" },
+                "temp_max_c": { "type": "number" },
+                "precip_mm": { "type": "number", "minimum": 0 },
+                "precip_prob": { "type": "number", "minimum": 0, "maximum": 1 },
+                "wind_scale_day": { "type": "string" },
+                "risk_tag": { "type": "string", "enum": ["rain", "heat", "cold", "normal"] }
+              }
+            }
+          },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "qweather",
+    "version": "1.0.0",
+    "timeout_ms": 2500,
+    "retries": 1,
+    "cache_ttl_seconds": 1800
+  }
+}

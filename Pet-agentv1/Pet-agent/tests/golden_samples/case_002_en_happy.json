@@ -1,0 +1,47 @@
+{
+  "input_case_id": "case_002_en_happy",
+  "raw_user_message": "I want to take my 3-year-old 8kg dog from Beijing to Shanghai for a 3-day trip starting on 2026-05-10, spending 6 hours per day sightseeing, budget 3000 RMB, and prefer taxi.",
+  "input_language": "en",
+  "recognized_stage": "pre_trip",
+  "recognized_task": "travel_route_planning",
+  "recognized_field_values": {
+    "destination_city": "Beijing",
+    "travel_start_date": "2026-05-10",
+    "trip_days": null,
+    "daily_play_hours": 6.0,
+    "transport_preference": "taxi",
+    "budget_total": 3000.0,
+    "pet_type": "dog",
+    "pet_age": null,
+    "pet_weight_kg": 8.0,
+    "session_id": "demo-session-001",
+    "travel_end_date": null,
+    "budget_per_person": null,
+    "historical_preferences": null,
+    "current_weather": null,
+    "route_matrix_summary": null
+  },
+  "missing_fields_resolution_status": {
+    "is_complete": false,
+    "missing_required_fields": [
+      "trip_days",
+      "pet_age"
+    ],
+    "blocking_fields": [],
+    "follow_up_question": "How many travel days are you planning for this trip?"
+  },
+  "source_provenance": {
+    "pet_breed_database": "static",
+    "policy_rules": "static",
+    "agents_md_logic": "static",
+    "pet_rules": "static",
+    "weather": "mock",
+    "route_matrix": "mock",
+    "gaode_poi": "mock",
+    "hotel_candidates": "none",
+    "pet_hospital_candidates": "none"
+  },
+  "planning_status": "blocked_incomplete_context",
+  "planner_result": null,
+  "fallback_or_block_reason": "Missing required route-planning fields."
+}

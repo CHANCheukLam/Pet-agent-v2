@@ -1,0 +1,228 @@
+{
+  "input_case_id": "case_005_fallback_static_only",
+  "raw_user_message": "我想在2026-05-10带一只3岁的8公斤狗从北京去上海玩2天，每天游玩5小时，打车出行。",
+  "input_language": "zh",
+  "recognized_stage": "pre_trip",
+  "recognized_task": "travel_route_planning",
+  "recognized_field_values": {
+    "destination_city": "Beijing",
+    "travel_start_date": "2026-05-10",
+    "trip_days": 2,
+    "daily_play_hours": 5.0,
+    "transport_preference": "taxi",
+    "budget_total": null,
+    "pet_type": "dog",
+    "pet_age": 3.0,
+    "pet_weight_kg": 8.0,
+    "session_id": "demo-session-001",
+    "travel_end_date": null,
+    "budget_per_person": null,
+    "historical_preferences": null,
+    "current_weather": null,
+    "route_matrix_summary": null
+  },
+  "missing_fields_resolution_status": {
+    "is_complete": true,
+    "missing_required_fields": [],
+    "blocking_fields": [],
+    "follow_up_question": null
+  },
+  "source_provenance": {
+    "pet_breed_database": "static",
+    "policy_rules": "static",
+    "agents_md_logic": "static",
+    "pet_rules": "static",
+    "weather": "none",
+    "route_matrix": "none",
+    "gaode_poi": "none",
+    "hotel_candidates": "none",
+    "pet_hospital_candidates": "none"
+  },
+  "planning_status": "success",
+  "planner_result": {
+    "planner_input": {
+      "normalized_request_json": {
+        "session_id": "demo-session-001",
+        "raw_user_message": "我想在2026-05-10带一只3岁的8公斤狗从北京去上海玩2天，每天游玩5小时，打车出行。",
+        "recognized_stage": "pre_trip",
+        "recognized_task": "travel_route_planning",
+        "output_language": "zh",
+        "user_profile": {
+          "user_age": null,
+          "traveler_count": null,
+          "medical_history": null,
+          "dietary_restrictions": null,
+          "preferred_pace": null,
+          "attraction_preferences": [],
+          "hotel_tier_preference": null
+        },
+        "pet_profile": {
+          "pet_type": "dog",
+          "pet_breed": null,
+          "pet_age": 3.0,
+          "pet_weight_kg": 8.0,
+          "pet_sex": null,
+          "neutered": null,
+          "vaccination_status": null,
+          "allergy_history": null,
+          "medical_history": null,
+          "special_needs": [],
+          "commute_tolerance": null,
+          "outdoor_tolerance": null,
+          "stress_or_heat_risk": null
+        },
+        "hard_rules": {
+          "transport_rules": [],
+          "venue_rules": [],
+          "budget_cap": null,
+          "fixed_dates": [
+            "2026-05-10"
+          ],
+          "hard_constraint_notes": [
+            "Must follow official pet transport constraints.",
+            "Must respect pet-friendly venue restrictions.",
+            "Static transport and policy rule files are treated as the source of truth.",
+            "Pet transport rules attached in tool results.",
+            "Must fit trip_days and daily_play_hours.",
+            "Must respect transport preference when feasible.",
+            "Must consider weather, operating hours, hotel distance, and route feasibility."
+          ]
+        },
+        "live_context": {
+          "destination_city": "Beijing",
+          "travel_start_date": "2026-05-10",
+          "travel_end_date": null,
+          "trip_days": 2,
+          "hotel_name": null,
+          "hotel_area": null,
+          "hotel_address": null,
+          "daily_play_hours": 5.0,
+          "transport_preference": "taxi",
+          "budget_total": null,
+          "budget_per_person": null,
+          "current_weather": null,
+          "route_matrix_summary": null,
+          "target_pois": []
+        },
+        "soft_evidence": {
+          "social_reviews": [],
+          "pet_friendly_tags": [],
+          "confidence_notes": [
+            "Soft evidence should guide ranking, not override hard rules."
+          ]
+        }
+      },
+      "constraint_summary": {
+        "normalized_time_constraints": {
+          "travel_start_date": "2026-05-10",
+          "trip_days": 2,
+          "daily_play_hours": 5.0
+        },
+        "normalized_budget_constraints": {},
+        "normalized_pet_constraints": {
+          "pet_type": "dog",
+          "pet_age": 3.0,
+          "pet_weight_kg": 8.0,
+          "pet_transport_rule_result": {
+            "taxi": "allowed_if_driver_accepts_or_if_carrier_used"
+          },
+          "pet_rule_result": {
+            "heat_risk": "medium"
+          }
+        },
+        "normalized_transport_constraints": {
+          "transport_preference": "taxi"
+        },
+        "normalized_weather_constraints": {},
+        "risk_flags": [
+          "weather_not_attached"
+        ]
+      },
+      "candidate_resource_summary": {
+        "candidate_spots": [],
+        "candidate_hotels": [],
+        "candidate_pet_hospitals": [],
+        "route_matrix_summary": {
+          "required_resources": [
+            "pet_transport_rule_db",
+            "weather_api",
+            "amap_geocode",
+            "amap_poi_search",
+            "amap_poi_detail",
+            "amap_route_matrix"
+          ],
+          "resource_status": "pending_or_mock",
+          "notes": "Planner packaging is ready; mock or live results may be attached here.",
+          "route_matrix_result": {},
+          "geocode_result": {}
+        }
+      },
+      "required_output_format": {
+        "format_name": "structured_json",
+        "must_include_fields": [
+          "route_plan_options",
+          "option_id",
+          "option_summary",
+          "daily_total_play_hours",
+          "route_nodes",
+          "route_legs",
+          "estimated_total_cost",
+          "route_reasoning",
+          "constraint_notes"
+        ]
+      },
+      "context_summary_for_5_1_mini": {
+        "feature_id": "travel_route_planning",
+        "destination_city": "Beijing",
+        "trip_days": 2,
+        "pet_type": "dog",
+        "pet_weight_kg": 8.0,
+        "transport_preference": "taxi",
+        "planning_goal": "Build a safe, feasible, pet-friendly structured result."
+      },
+      "evidence_blocks": {
+        "transport_rule_result": {
+          "source_type": "static",
+          "source_name": "data/static/transport_rules/pet_air_transport_rules_cn_jinghu_compact_rules_engine_v1.json | data/static/transport_rules/pet_rail_transport_rules_cn_hsr_v1.json | data/static/transport_rules/pet_urban_transit_rules_beijing_shanghai_rules_engine_v1.json | AGENTS.md",
+          "status": "available",
+          "summary": "Static transport and pet-policy feasibility constraints used for planner safety checks.",
+          "data": {
+            "pet_transport_rule_result": {
+              "taxi": "allowed_if_driver_accepts_or_if_carrier_used"
+            },
+            "pet_rule_result": {
+              "heat_risk": "medium"
+            }
+          }
+        },
+        "pet_profile_summary": {
+          "source_type": "static",
+          "source_name": "data/static/pet_profiles/Cat_PURINA_data_cleaned_for_cosmos.json | data/static/pet_profiles/Dog_AKC_data_cleaned_for_cosmos.json | data/static/pet_profiles/Cat_TICA_data_cleaned_no_weight_data.json | recognized_field_values",
+          "status": "available",
+          "summary": "Core pet attributes grounded in normalized request fields and static pet profile datasets.",
+          "data": {
+            "pet_type": "dog",
+            "pet_age": 3.0,
+            "pet_weight_kg": 8.0,
+            "size_class": "small"
+          }
+        },
+        "weather_constraint": {
+          "source_type": "mock",
+          "source_name": "data/mock/weather/tool.qweather.forecast.json",
+          "status": "missing",
+          "summary": "Mock weather constraint block for filtering unsafe outdoor planning.",
+          "data": {}
+        },
+        "route_commute": {
+          "source_type": "mock",
+          "source_name": "data/mock/maps/tool.gaode.route_matrix.json",
+          "status": "missing",
+          "summary": "Mock commute-time block for route feasibility and hotel-distance checks.",
+          "data": {}
+        }
+      }
+    }
+  },
+  "fallback_or_block_reason": null
+}

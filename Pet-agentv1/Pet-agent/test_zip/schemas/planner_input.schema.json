@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "planner_input.schema.json",
+  "title": "PlannerHandoffPayload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "normalized_request_json",
+    "constraint_summary",
+    "candidate_resource_summary",
+    "required_output_format",
+    "context_summary_for_5_1_mini"
+  ],
+  "properties": {
+    "normalized_request_json": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_user_message",
+        "recognized_stage",
+        "recognized_task",
+        "output_language",
+        "user_profile",
+        "pet_profile",
+        "hard_rules",
+        "live_context",
+        "soft_evidence"
+      ],
+      "properties": {
+        "session_id": {
+          "type": ["string", "null"]
+        },
+        "raw_user_message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recognized_stage": {
+          "type": "string",
+          "enum": ["global", "pre_trip", "in_trip"]
+        },
+        "recognized_task": {
+          "type": "string",
+          "enum": [
+            "welcome_and_stage_detection",
+            "document_material_reminder",
+            "scenic_recommendation",
+            "travel_route_planning",
+            "hotel_nearby_pet_hospital_summary",
+            "route_replanning",
+            "alternative_scenic_recommendation",
+            "nearby_hospital_recommendation",
+            "nearby_pet_hospital_recommendation"
+          ]
+        },
+        "output_language": {
+          "type": "string",
+          "enum": ["zh", "en", "bilingual"]
+        },
+        "user_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "user_age": { "type": ["integer", "null"] },
+            "traveler_count": { "type": ["integer", "null"] },
+            "medical_history": { "type": ["string", "null"] },
+            "dietary_restrictions": { "type": ["string", "null"] },
+            "preferred_pace": { "type": ["string", "null"] },
+            "attraction_preferences": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "hotel_tier_preference": { "type": ["string", "null"] }
+          },
+          "required": ["attraction_preferences"]
+        },
+        "pet_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pet_type": { "type": ["string", "null"] },
+            "pet_breed": { "type": ["string", "null"] },
+            "pet_age": { "type": ["number", "null"] },
+            "pet_weight_kg": { "type": ["number", "null"] },
+            "pet_sex": { "type": ["string", "null"] },
+            "neutered": { "type": ["boolean", "null"] },
+            "vaccination_status": { "type": ["string", "null"] },
+            "allergy_history": { "type": ["string", "null"] },
+            "medical_history": { "type": ["string", "null"] },
+            "special_needs": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "commute_tolerance": { "type": ["string", "null"] },
+            "outdoor_tolerance": { "type": ["string", "null"] },
+            "stress_or_heat_risk": { "type": ["string", "null"] }
+          },
+          "required": ["special_needs"]
+        },
+        "hard_rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "transport_rules": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "venue_rules": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "budget_cap": { "type": ["number", "null"] },
+            "fixed_dates": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "hard_constraint_notes": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": [
+            "transport_rules",
+            "venue_rules",
+            "fixed_dates",
+            "hard_constraint_notes"
+          ]
+        },
+        "live_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "destination_city": { "type": ["string", "null"] },
+            "travel_start_date": { "type": ["string", "null"] },
+            "travel_end_date": { "type": ["string", "null"] },
+            "trip_days": { "type": ["integer", "null"] },
+            "hotel_name": { "type": ["string", "null"] },
+            "hotel_area": { "type": ["string", "null"] },
+            "hotel_address": { "type": ["string", "null"] },
+            "daily_play_hours": { "type": ["number", "null"] },
+            "transport_preference": { "type": ["string", "null"] },
+            "budget_total": { "type": ["number", "null"] },
+            "budget_per_person": { "type": ["number", "null"] },
+            "current_weather": { "type": ["object", "null"] },
+            "route_matrix_summary": { "type": ["object", "null"] },
+            "target_pois": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["target_pois"]
+        },
+        "soft_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "social_reviews": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "pet_friendly_tags": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "confidence_notes": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": [
+            "social_reviews",
+            "pet_friendly_tags",
+            "confidence_notes"
+          ]
+        }
+      }
+    },
+    "constraint_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "normalized_time_constraints": { "type": "object" },
+        "normalized_budget_constraints": { "type": "object" },
+        "normalized_pet_constraints": { "type": "object" },
+        "normalized_transport_constraints": { "type": "object" },
+        "normalized_weather_constraints": { "type": "object" },
+        "risk_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": [
+        "normalized_time_constraints",
+        "normalized_budget_constraints",
+        "normalized_pet_constraints",
+        "normalized_transport_constraints",
+        "normalized_weather_constraints",
+        "risk_flags"
+      ]
+    },
+    "candidate_resource_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_spots": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "candidate_hotels": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "candidate_pet_hospitals": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "route_matrix_summary": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "candidate_spots",
+        "candidate_hotels",
+        "candidate_pet_hospitals",
+        "route_matrix_summary"
+      ]
+    },
+    "required_output_format": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format_name": {
+          "type": "string"
+        },
+        "must_include_fields": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": [
+        "format_name",
+        "must_include_fields"
+      ]
+    },
+    "context_summary_for_5_1_mini": {
+      "type": "object"
+    }
+  }
+}

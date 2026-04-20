@@ -1,0 +1,281 @@
+{
+  "input_case_id": "case_006_weather_mock",
+  "raw_user_message": "我想在2026-07-20带一只3岁的10公斤狗从北京去上海玩3天，每天游玩6小时，主要安排户外景点，打车出行。",
+  "input_language": "zh",
+  "recognized_stage": "pre_trip",
+  "recognized_task": "scenic_recommendation",
+  "recognized_field_values": {
+    "destination_city": "Shanghai",
+    "travel_start_date": "2026-07-20",
+    "trip_days": 3,
+    "daily_play_hours": 6.0,
+    "transport_preference": "taxi",
+    "budget_total": null,
+    "pet_type": "dog",
+    "pet_age": 3.0,
+    "pet_weight_kg": 10.0,
+    "session_id": "demo-session-001",
+    "travel_end_date": null,
+    "budget_per_person": null,
+    "historical_preferences": null,
+    "current_weather": null,
+    "route_matrix_summary": null
+  },
+  "missing_fields_resolution_status": {
+    "is_complete": true,
+    "missing_required_fields": [],
+    "blocking_fields": [],
+    "follow_up_question": null
+  },
+  "source_provenance": {
+    "pet_breed_database": "static",
+    "policy_rules": "static",
+    "agents_md_logic": "static",
+    "pet_rules": "static",
+    "weather": "mock",
+    "route_matrix": "mock",
+    "gaode_poi": "mock",
+    "hotel_candidates": "none",
+    "pet_hospital_candidates": "none"
+  },
+  "planning_status": "success",
+  "planner_result": {
+    "planner_input": {
+      "normalized_request_json": {
+        "session_id": "demo-session-001",
+        "raw_user_message": "我想在2026-07-20带一只3岁的10公斤狗从北京去上海玩3天，每天游玩6小时，主要安排户外景点，打车出行。",
+        "recognized_stage": "pre_trip",
+        "recognized_task": "scenic_recommendation",
+        "output_language": "zh",
+        "user_profile": {
+          "user_age": null,
+          "traveler_count": null,
+          "medical_history": null,
+          "dietary_restrictions": null,
+          "preferred_pace": null,
+          "attraction_preferences": [],
+          "hotel_tier_preference": null
+        },
+        "pet_profile": {
+          "pet_type": "dog",
+          "pet_breed": null,
+          "pet_age": 3.0,
+          "pet_weight_kg": 10.0,
+          "pet_sex": null,
+          "neutered": null,
+          "vaccination_status": null,
+          "allergy_history": null,
+          "medical_history": null,
+          "special_needs": [],
+          "commute_tolerance": null,
+          "outdoor_tolerance": null,
+          "stress_or_heat_risk": null
+        },
+        "hard_rules": {
+          "transport_rules": [],
+          "venue_rules": [],
+          "budget_cap": null,
+          "fixed_dates": [
+            "2026-07-20"
+          ],
+          "hard_constraint_notes": [
+            "Must follow official pet transport constraints.",
+            "Must respect pet-friendly venue restrictions.",
+            "Static transport and policy rule files are treated as the source of truth.",
+            "Pet transport rules attached in tool results."
+          ]
+        },
+        "live_context": {
+          "destination_city": "Shanghai",
+          "travel_start_date": "2026-07-20",
+          "travel_end_date": null,
+          "trip_days": 3,
+          "hotel_name": null,
+          "hotel_area": null,
+          "hotel_address": null,
+          "daily_play_hours": 6.0,
+          "transport_preference": "taxi",
+          "budget_total": null,
+          "budget_per_person": null,
+          "current_weather": {
+            "forecast_days": [
+              {
+                "date": "2026-07-20",
+                "condition": "hot",
+                "temperature_c": 36,
+                "outdoor_suitability": "low"
+              }
+            ],
+            "planning_note": "High heat expected; reduce outdoor activity."
+          },
+          "route_matrix_summary": {
+            "hotel_to_spot_avg_minutes": 25,
+            "spot_to_spot_avg_minutes": 20,
+            "longest_leg_minutes": 40,
+            "transport_mode_used_for_estimate": "taxi"
+          },
+          "target_pois": []
+        },
+        "soft_evidence": {
+          "social_reviews": [],
+          "pet_friendly_tags": [],
+          "confidence_notes": [
+            "Soft evidence should guide ranking, not override hard rules.",
+            "Resource status: mock_attached"
+          ]
+        }
+      },
+      "constraint_summary": {
+        "normalized_time_constraints": {
+          "travel_start_date": "2026-07-20",
+          "trip_days": 3,
+          "daily_play_hours": 6.0
+        },
+        "normalized_budget_constraints": {},
+        "normalized_pet_constraints": {
+          "pet_type": "dog",
+          "pet_age": 3.0,
+          "pet_weight_kg": 10.0,
+          "pet_transport_rule_result": {
+            "taxi": "allowed_if_driver_accepts_or_if_carrier_used",
+            "public_transport": "restricted"
+          },
+          "pet_rule_result": {
+            "heat_risk": "high",
+            "max_continuous_outdoor_minutes": 60
+          }
+        },
+        "normalized_transport_constraints": {
+          "transport_preference": "taxi"
+        },
+        "normalized_weather_constraints": {
+          "forecast_days": [
+            {
+              "date": "2026-07-20",
+              "condition": "hot",
+              "temperature_c": 36,
+              "outdoor_suitability": "low"
+            }
+          ],
+          "planning_note": "High heat expected; reduce outdoor activity."
+        },
+        "risk_flags": []
+      },
+      "candidate_resource_summary": {
+        "candidate_spots": [
+          {
+            "name": "Indoor Museum"
+          }
+        ],
+        "candidate_hotels": [],
+        "candidate_pet_hospitals": [],
+        "route_matrix_summary": {
+          "required_resources": [
+            "amap_geocode",
+            "amap_poi_search",
+            "amap_poi_detail",
+            "review_tag_db",
+            "pet_friendly_rule_db"
+          ],
+          "resource_status": "mock_attached",
+          "notes": "Scenic recommendation depends on candidate spot retrieval and pet-friendly filtering."
+        }
+      },
+      "required_output_format": {
+        "format_name": "structured_json",
+        "must_include_fields": [
+          "recommended_scenic_spots_by_category",
+          "category_name",
+          "scenic_spot_name",
+          "scenic_type",
+          "indoor_or_outdoor",
+          "ticket_required",
+          "ticket_price",
+          "visitor_review_summary",
+          "pet_friendly_evidence",
+          "recommendation_reason"
+        ]
+      },
+      "context_summary_for_5_1_mini": {
+        "feature_id": "scenic_recommendation",
+        "destination_city": "Shanghai",
+        "trip_days": 3,
+        "pet_type": "dog",
+        "pet_weight_kg": 10.0,
+        "transport_preference": "taxi",
+        "planning_goal": "Build a safe, feasible, pet-friendly structured result."
+      },
+      "evidence_blocks": {
+        "transport_rule_result": {
+          "source_type": "static",
+          "source_name": "data/static/transport_rules/pet_air_transport_rules_cn_jinghu_compact_rules_engine_v1.json | data/static/transport_rules/pet_rail_transport_rules_cn_hsr_v1.json | data/static/transport_rules/pet_urban_transit_rules_beijing_shanghai_rules_engine_v1.json | AGENTS.md",
+          "status": "available",
+          "summary": "Static transport and pet-policy feasibility constraints used for planner safety checks.",
+          "data": {
+            "pet_transport_rule_result": {
+              "taxi": "allowed_if_driver_accepts_or_if_carrier_used",
+              "public_transport": "restricted"
+            },
+            "pet_rule_result": {
+              "heat_risk": "high",
+              "max_continuous_outdoor_minutes": 60
+            }
+          }
+        },
+        "pet_profile_summary": {
+          "source_type": "static",
+          "source_name": "data/static/pet_profiles/Cat_PURINA_data_cleaned_for_cosmos.json | data/static/pet_profiles/Dog_AKC_data_cleaned_for_cosmos.json | data/static/pet_profiles/Cat_TICA_data_cleaned_no_weight_data.json | recognized_field_values",
+          "status": "available",
+          "summary": "Core pet attributes grounded in normalized request fields and static pet profile datasets.",
+          "data": {
+            "pet_type": "dog",
+            "pet_age": 3.0,
+            "pet_weight_kg": 10.0,
+            "size_class": "small"
+          }
+        },
+        "weather_constraint": {
+          "source_type": "mock",
+          "source_name": "data/mock/weather/tool.qweather.forecast.json",
+          "status": "available",
+          "summary": "Mock weather constraint block for filtering unsafe outdoor planning.",
+          "data": {
+            "forecast_days": [
+              {
+                "date": "2026-07-20",
+                "condition": "hot",
+                "temperature_c": 36,
+                "outdoor_suitability": "low"
+              }
+            ],
+            "planning_note": "High heat expected; reduce outdoor activity."
+          }
+        },
+        "route_commute": {
+          "source_type": "mock",
+          "source_name": "data/mock/maps/tool.gaode.route_matrix.json",
+          "status": "available",
+          "summary": "Mock commute-time block for route feasibility and hotel-distance checks.",
+          "data": {
+            "hotel_to_spot_avg_minutes": 25,
+            "spot_to_spot_avg_minutes": 20,
+            "longest_leg_minutes": 40,
+            "transport_mode_used_for_estimate": "taxi"
+          }
+        },
+        "poi_candidates": {
+          "source_type": "mock",
+          "source_name": "data/mock/maps/tool.gaode.poi_keyword.json | data/mock/maps/tool.gaode.poi_detail.json",
+          "status": "available",
+          "summary": "Mock POI candidates retrieved from local Gaode sample outputs.",
+          "data": [
+            {
+              "name": "Indoor Museum"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "fallback_or_block_reason": null
+}

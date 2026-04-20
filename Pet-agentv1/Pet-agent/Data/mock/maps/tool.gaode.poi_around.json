@@ -1,0 +1,90 @@
+{
+  "name": "gaode.poi_around",
+  "description": "Gaode nearby POI search around current location.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["location"],
+    "properties": {
+      "location": { "type": "string", "description": "lng,lat" },
+      "keywords": { "type": "string" },
+      "types": { "type": "string" },
+      "radius": { "type": "integer", "minimum": 1, "maximum": 50000, "default": 3000 },
+      "sortrule": { "type": "string", "enum": ["distance", "weight"], "default": "distance" },
+      "page": { "type": "integer", "minimum": 1, "default": 1 },
+      "page_size": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20 }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "items", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "gaode" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["poi_id", "name", "location"],
+              "properties": {
+                "poi_id": { "type": "string" },
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "address": { "type": "string" },
+                "location": { "type": "string", "description": "lng,lat" },
+                "distance_m": { "type": "integer", "minimum": 0 },
+                "indoor_outdoor": { "type": "string", "enum": ["indoor", "outdoor", "mixed", "unknown"] },
+                "open_now": { "type": "boolean" },
+                "is_24h": { "type": "boolean" },
+                "tel": { "type": "string" },
+                "business_hours": { "type": "string" },
+                "ticket_price_cny": { "type": "number", "minimum": 0 },
+                "user_rating": { "type": "number", "minimum": 0, "maximum": 5 },
+                "hospital_type": { "type": "string", "enum": ["general", "emergency", "specialty", "pet_hospital", "pharmacy", "unknown"] },
+                "hotel_grade": { "type": "string", "enum": ["economy", "comfort", "high_end", "luxury", "unknown"] },
+                "pet_policy": { "type": "string", "enum": ["allowed", "restricted", "not_allowed", "unknown"] },
+                "pet_friendly_hint": { "type": "string" }
+              }
+            }
+          },
+          "total_count": { "type": "integer", "minimum": 0 },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "gaode",
+    "version": "1.1.0",
+    "timeout_ms": 3000,
+    "retries": 1,
+    "cache_ttl_seconds": 120
+  }
+}
