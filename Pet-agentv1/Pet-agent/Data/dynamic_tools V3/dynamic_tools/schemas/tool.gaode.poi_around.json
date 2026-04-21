@@ -1,0 +1,146 @@
+{
+  "name": "gaode.poi_around",
+  "description": "Gaode nearby POI search around current location.",
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["location"],
+    "properties": {
+      "location": { "type": "string", "description": "中心点经纬度，格式为 'lng,lat'，如 '121.4737,31.2304'。必填。" },
+      "keywords": { "type": "string", "description": "搜索关键词，如 '宠物医院'、'咖啡馆'。可选。" },
+      "types": { "type": "string", "description": "POI类型编码，多个类型用 '|' 分隔。可选。" },
+      "radius": { "type": "integer", "minimum": 1, "maximum": 50000, "default": 3000, "description": "搜索半径，单位米，默认3000，最大50000。可选。" },
+      "sortrule": { "type": "string", "enum": ["distance", "weight"], "default": "distance", "description": "排序规则，distance=距离优先，weight=权重优先。默认distance。可选。" },
+      "page": { "type": "integer", "minimum": 1, "default": 1, "description": "页码，默认1。可选。" },
+      "page_size": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20, "description": "每页数量，默认20，最大50。可选。" }
+    }
+  },
+  "examples": {
+    "input": {
+      "location": "121.4737,31.2304",
+      "keywords": "宠物医院",
+      "radius": 2000,
+      "sortrule": "distance",
+      "page": 1,
+      "page_size": 5
+    },
+    "output_success": {
+      "ok": true,
+      "request_id": "mock-reqid-001",
+      "data": {
+        "source": "gaode",
+        "items": [
+          {
+            "poi_id": "B001",
+            "name": "上海宠物医院",
+            "type": "pet_hospital",
+            "address": "上海市静安区xxx路",
+            "location": "121.4738,31.2305",
+            "distance_m": 120,
+            "indoor_outdoor": "indoor",
+            "open_now": true,
+            "is_24h": false,
+            "tel": "021-12345678",
+            "business_hours": "09:00-18:00",
+            "ticket_price_cny": 0,
+            "user_rating": 4.7,
+            "hospital_type": "pet_hospital",
+            "hotel_grade": "unknown",
+            "pet_policy": "allowed",
+            "pet_friendly_hint": "可携带小型犬"
+          }
+        ],
+        "total_count": 12,
+        "updated_at": "2026-04-20T10:00:00Z",
+        "upstream_status": "200",
+        "upstream_code": "OK",
+        "upstream_message": "success"
+      },
+      "error": null
+    },
+    "output_error": {
+      "ok": false,
+      "request_id": "mock-reqid-002",
+      "data": null,
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "location 字段缺失或格式错误",
+        "retryable": false,
+        "upstream_status": "400",
+        "upstream_code": "INVALID_PARAM"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ok", "request_id", "data", "error"],
+    "properties": {
+      "ok": { "type": "boolean" },
+      "request_id": { "type": "string" },
+      "data": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["source", "items", "updated_at"],
+        "properties": {
+          "source": { "type": "string", "const": "gaode" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["poi_id", "name", "location"],
+              "properties": {
+                "poi_id": { "type": "string" },
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "address": { "type": "string" },
+                "location": { "type": "string", "description": "lng,lat" },
+                "distance_m": { "type": "integer", "minimum": 0 },
+                "indoor_outdoor": { "type": "string", "enum": ["indoor", "outdoor", "mixed", "unknown"] },
+                "open_now": { "type": "boolean" },
+                "is_24h": { "type": "boolean" },
+                "tel": { "type": "string" },
+                "business_hours": { "type": "string" },
+                "ticket_price_cny": { "type": "number", "minimum": 0 },
+                "user_rating": { "type": "number", "minimum": 0, "maximum": 5 },
+                "hospital_type": { "type": "string", "enum": ["general", "emergency", "specialty", "pet_hospital", "pharmacy", "unknown"] },
+                "hotel_grade": { "type": "string", "enum": ["economy", "comfort", "high_end", "luxury", "unknown"] },
+                "pet_policy": { "type": "string", "enum": ["allowed", "restricted", "not_allowed", "unknown"] },
+                "pet_friendly_hint": { "type": "string" }
+              }
+            }
+          },
+          "total_count": { "type": "integer", "minimum": 0 },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" },
+          "upstream_message": { "type": "string" }
+        }
+      },
+      "error": {
+        "type": ["object", "null"],
+        "additionalProperties": false,
+        "required": ["code", "message", "retryable"],
+        "properties": {
+          "code": { "type": "string", "enum": ["VALIDATION_ERROR", "AUTH_FAILED", "RATE_LIMITED", "TIMEOUT", "UPSTREAM_ERROR", "UPSTREAM_EMPTY"] },
+          "message": { "type": "string" },
+          "retryable": { "type": "boolean" },
+          "upstream_status": { "type": "string" },
+          "upstream_code": { "type": "string" }
+        }
+      }
+    },
+    "oneOf": [
+      { "properties": { "ok": { "const": true }, "data": { "type": "object" }, "error": { "type": "null" } } },
+      { "properties": { "ok": { "const": false }, "data": { "type": "null" }, "error": { "type": "object" } } }
+    ]
+  },
+  "meta": {
+    "provider": "gaode",
+    "version": "1.1.0",
+    "timeout_ms": 3000,
+    "retries": 1,
+    "cache_ttl_seconds": 120
+  }
+}
